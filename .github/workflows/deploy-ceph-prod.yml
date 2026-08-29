@@ -1,4 +1,4 @@
-name: PushToCephQA
+name: PushToCephProduction
 
 # Controls when the action will run.
 on:
