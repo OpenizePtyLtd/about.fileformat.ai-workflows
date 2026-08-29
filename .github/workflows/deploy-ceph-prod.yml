@@ -95,3 +95,12 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.CEPH_ACCESS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CEPH_SECRET_KEY }}
+
+    - name: Purge Bunny CDN cache
+      if: github.event_name != 'pull_request'
+      env:
+        BUNNYNET_ACCESSKEY: ${{ secrets.BUNNYNET_ACCESSKEY }}
+      run: |
+        curl --version
+        echo Purging https://about.fileformat.ai
+        curl -siG -H "X-Api-Key: $BUNNYNET_ACCESSKEY" --data-urlencode "url=https://about.fileformat.ai/*" "https://api.dynabic.com/bn/purge?async=true"
